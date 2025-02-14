@@ -86,3 +86,28 @@ Esta API REST servirá como para una aplicación de gestión de tareas del hogar
   - Eliminar cualquier tarea.
 
 ---
+
+### **Excepciones Definidas**
+
+1. **Usuario no encontrado** (404 Not Found)
+   - Se lanza cuando se intenta acceder a un usuario que no existe en la base de datos.
+
+2. **Tarea no encontrada** (404 Not Found)
+   - Se lanza cuando se intenta acceder a una tarea inexistente.
+
+3. **Email ya registrado** (400 Bad Request)
+   - Se lanza cuando un usuario intenta registrarse con un correo ya existente en la base de datos.
+
+4. **Credenciales inválidas** (401 Unauthorized)
+   - Se lanza cuando el usuario proporciona un email o contraseña incorrectos al iniciar sesión.
+
+5. **Acceso no autorizado** (403 Forbidden)
+   - Se lanza cuando un usuario intenta acceder o modificar un recurso al que no tiene permisos.
+
+6. **Error en la validación de datos** (400 Bad Request)
+   - Se lanza cuando los datos de entrada no cumplen con los requisitos esperados.
+
+7. **Error interno del servidor** (500 Internal Server Error)
+   - Se lanza ante cualquier error inesperado en la API.
+
+---
