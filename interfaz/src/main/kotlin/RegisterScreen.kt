@@ -87,7 +87,7 @@ fun RegisterScreen(onRegisterSuccess: () -> Unit) {
                         }
 
                         when (response.status) {
-                            HttpStatusCode.OK -> {
+                            HttpStatusCode.Created -> {
                                 errorMessage = "Usuario registrado"
                                 onRegisterSuccess()
                             }

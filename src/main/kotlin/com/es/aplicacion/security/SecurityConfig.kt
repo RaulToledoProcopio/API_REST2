@@ -76,8 +76,4 @@ class SecurityConfig {
     fun jwtDecoder(): JwtDecoder {
         return NimbusJwtDecoder.withPublicKey(rsaKeys.publicKey).build()
     }
-
-
-
-
 }
