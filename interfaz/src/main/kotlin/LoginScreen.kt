@@ -55,16 +55,19 @@ fun LoginScreen(onLoginSuccess: () -> Unit, onRegisterClick: () -> Unit) {
                             )
                         }
 
-                        when (response.status) {
-                            HttpStatusCode.OK -> {
-                                errorMessage = null
-                                onLoginSuccess()
-                            }
-                            HttpStatusCode.NotFound -> errorMessage = "Usuario no encontrado"
-                            HttpStatusCode.Unauthorized -> errorMessage = "Credenciales inválidas"
-                            HttpStatusCode.BadRequest -> errorMessage = "Error en la validación de datos"
-                            HttpStatusCode.InternalServerError -> errorMessage = "Error interno del servidor"
-                            else -> errorMessage = "Error desconocido: ${response.status}"
+                        if (response.status == HttpStatusCode.Created) {
+                            errorMessage = "Credenciales correctas"
+                            onLoginSuccess()
+                        } else if (response.status == HttpStatusCode.NotFound) {
+                            errorMessage = "Usuario no encontrado"
+                        } else if (response.status == HttpStatusCode.Unauthorized) {
+                            errorMessage = "Credenciales inválidas"
+                        } else if (response.status == HttpStatusCode.BadRequest) {
+                            errorMessage = "Error en la validación de datos"
+                        } else if (response.status == HttpStatusCode.InternalServerError) {
+                            errorMessage = "Error interno del servidor"
+                        } else {
+                            errorMessage = "Error desconocido: ${response.status}"
                         }
                     } catch (e: Exception) {
                         errorMessage = "Error de conexión: ${e.message}"
