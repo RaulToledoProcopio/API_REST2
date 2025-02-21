@@ -49,25 +49,31 @@ fun LoginScreen(onLoginSuccess: () -> Unit, onRegisterClick: () -> Unit) {
                             contentType(ContentType.Application.Json)
                             setBody(
                                 """{
-                            "username": "$username",
-                            "password": "$password"
-                        }"""
+                        "username": "$username",
+                        "password": "$password"
+                    }"""
                             )
                         }
-
-                        if (response.status == HttpStatusCode.Created) {
-                            errorMessage = "Credenciales correctas"
-                            onLoginSuccess()
-                        } else if (response.status == HttpStatusCode.NotFound) {
-                            errorMessage = "Usuario no encontrado"
-                        } else if (response.status == HttpStatusCode.Unauthorized) {
-                            errorMessage = "Credenciales inválidas"
-                        } else if (response.status == HttpStatusCode.BadRequest) {
-                            errorMessage = "Error en la validación de datos"
-                        } else if (response.status == HttpStatusCode.InternalServerError) {
-                            errorMessage = "Error interno del servidor"
-                        } else {
-                            errorMessage = "Error desconocido: ${response.status}"
+                        when (response.status) {
+                            HttpStatusCode.Created -> {
+                                errorMessage = "Credenciales correctas"
+                                onLoginSuccess()
+                            }
+                            HttpStatusCode.NotFound -> {
+                                errorMessage = "Usuario no encontrado"
+                            }
+                            HttpStatusCode.Unauthorized -> {
+                                errorMessage = "Credenciales incorrectas"
+                            }
+                            HttpStatusCode.BadRequest -> {
+                                errorMessage = "Error en la validación de datos"
+                            }
+                            HttpStatusCode.InternalServerError -> {
+                                errorMessage = "Error interno del servidor"
+                            }
+                            else -> {
+                                errorMessage = "Error desconocido: ${response.status}"
+                            }
                         }
                     } catch (e: Exception) {
                         errorMessage = "Error de conexión: ${e.message}"
