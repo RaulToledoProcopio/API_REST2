@@ -112,4 +112,42 @@ Esta API REST servirá como para una aplicación de gestión de tareas del hogar
 
 ---
 
-## Nombre del Proyecto
+## PRUEBAS GESTIÓN USUARIOS
+
+### Registrar un Usuario User
+
+- En este caso vamos a registrar un usuario de tipo user y vamos a realizar capturas tanto de insomnia como de la interfaz.
+
+<img src="Images/UserInsomnia.png" alt="UserInsomnia" width="1000"/>
+<br>
+<img src="Images/UserInterfaz.png" alt="UserInterfaz" width="300"/>
+<br>
+<img src="Images/UsuarioBBDD.png" alt="UserInterfaz" width="500"/>
+
+### Registrar un Usuario Admin
+
+- En este caso vamos a registrar un usuario de tipo admin y vamos a realizar capturas tanto de insomnia como de la interfaz.
+
+<img src="Images/AdminInsomnia.png" alt="UserInterfaz" width="1000"/>
+<br>
+<img src="Images/AdminBBDD.png" alt="UserInterfaz" width="500"/>
+<br>
+
+### Logear con un Usuario User
+
+- En este caso vamos a logearnos con un usuario USER.
+
+<img src="Images/LoginInsomnia.png" alt="UserInterfaz" width="10000"/>
+<br>
+<img src="Images/LoginInterfaz.png" alt="UserInterfaz" width="300"/>
+<br>
+
+### Logear con un Usuario Admin
+
+En este caso vamos a logearnos con un usuario ADMIN.
+
+<img src="Images/AdminLogin.png" alt="UserInterfaz" width="300"/>
+<br>
+<img src="Images/AdminLogin2.png" alt="UserInterfaz" width="300"/>
+<br>
+
