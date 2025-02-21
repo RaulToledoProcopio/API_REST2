@@ -144,10 +144,27 @@ Esta API REST servirá como para una aplicación de gestión de tareas del hogar
 
 ### Logear con un Usuario Admin
 
-En este caso vamos a logearnos con un usuario ADMIN.
+- En este caso vamos a logearnos con un usuario ADMIN.
 
-<img src="Images/AdminLogin.png" alt="UserInterfaz" width="300"/>
+<img src="Images/AdminLogin.png" alt="UserInterfaz" width="1000"/>
 <br>
 <img src="Images/AdminLogin2.png" alt="UserInterfaz" width="300"/>
 <br>
 
+### Registrar un Usuario con campos incompletos
+
+- Vamos a intentar realizar un registro erróneo con campos incompletos.
+
+<img src="Images/CamposVacíos.png" alt="UserInterfaz" width="1000"/>
+<br>
+<img src="Images/CamposVacíos2.png" alt="UserInterfaz" width="300"/>
+<br>
+
+### Logear a un Usuario con datos incorrectos
+
+- Vamos a intentar logearnos con un Usuario que sea incorrecto.
+
+<img src="Images/LoginIncorrecto.png" alt="UserInterfaz" width="1000"/>
+<br>
+<img src="Images/LoginIncorrecto2.png" alt="UserInterfaz" width="300"/>
+<br>
