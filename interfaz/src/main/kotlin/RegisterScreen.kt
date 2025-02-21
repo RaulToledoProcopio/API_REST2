@@ -89,7 +89,7 @@ fun RegisterScreen(onRegisterSuccess: () -> Unit) {
                         when (response.status) {
                             HttpStatusCode.Created -> {
                                 errorMessage = "Usuario registrado"
-                                onRegisterSuccess()
+                                //onRegisterSuccess()
                             }
                             HttpStatusCode.BadRequest -> errorMessage = "Email ya registrado o datos inválidos"
                             HttpStatusCode.InternalServerError -> errorMessage = "Error interno del servidor"
