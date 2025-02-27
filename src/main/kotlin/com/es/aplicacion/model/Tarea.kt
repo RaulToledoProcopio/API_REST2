@@ -10,7 +10,7 @@ data class Tarea(
     val id: String? = null,
     val titulo: String,
     val descripcion: String,
-    val usuarioId: String,
-    val completada: Boolean = false,
+    val username: String,
+    var completada: Boolean = false,
     val fechaCreacion: LocalDateTime = LocalDateTime.now()
 )
