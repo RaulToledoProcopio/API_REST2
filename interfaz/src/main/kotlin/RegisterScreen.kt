@@ -70,33 +70,39 @@ fun RegisterScreen(onRegisterSuccess: () -> Unit) {
                             contentType(ContentType.Application.Json)
                             setBody(
                                 """{
-                                        "username": "$username",
-                                        "email": "$email",
-                                        "password": "$password",
-                                        "passwordRepeat": "$passwordRepeat",
-                                        "rol": "USER",
-                                        "direccion": {
-                                            "provincia": "$provincia",
-                                            "municipio": "$municipio",
-                                            "calle": "$calle",
-                                            "num": "$num",
-                                            "cp": "$cp"
-                                        }
-                                    }"""
-                                )
+                        "username": "$username",
+                        "email": "$email",
+                        "password": "$password",
+                        "passwordRepeat": "$passwordRepeat",
+                        "rol": "USER",
+                        "direccion": {
+                            "provincia": "$provincia",
+                            "municipio": "$municipio",
+                            "calle": "$calle",
+                            "num": "$num",
+                            "cp": "$cp"
                         }
-                        if (response.status == HttpStatusCode.OK) {
-                            onRegisterSuccess()
-                        } else {
-                            errorMessage = "Error en el registro"
+                    }"""
+                            )
+                        }
+
+                        when (response.status) {
+                            HttpStatusCode.Created -> {
+                                errorMessage = "Usuario registrado"
+                                //onRegisterSuccess()
+                            }
+                            HttpStatusCode.BadRequest -> errorMessage = "Email ya registrado o datos inválidos"
+                            HttpStatusCode.InternalServerError -> errorMessage = "Error interno del servidor"
+                            else -> errorMessage = "Error desconocido: ${response.status}"
                         }
                     } catch (e: Exception) {
-                        errorMessage = "Error: ${e.message}"
+                        errorMessage = "Error de conexión: ${e.message}"
                     }
                 }
             }, modifier = Modifier.fillMaxWidth()) {
                 Text("Registrarse")
             }
+
 
             errorMessage?.let { Text(it, color = MaterialTheme.colors.error) }
         }

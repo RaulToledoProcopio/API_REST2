@@ -49,19 +49,34 @@ fun LoginScreen(onLoginSuccess: () -> Unit, onRegisterClick: () -> Unit) {
                             contentType(ContentType.Application.Json)
                             setBody(
                                 """{
-                                        "username": "$username",
-                                        "password": "$password"
-                                    }"""
+                        "username": "$username",
+                        "password": "$password"
+                    }"""
                             )
                         }
-                        if (response.status == HttpStatusCode.Created) {
-                            errorMessage = "Credenciales correctas"
-                            onLoginSuccess()
-                        } else {
-                            errorMessage = "Credenciales incorrectas"
+                        when (response.status) {
+                            HttpStatusCode.Created -> {
+                                errorMessage = "Credenciales correctas"
+                                onLoginSuccess()
+                            }
+                            HttpStatusCode.NotFound -> {
+                                errorMessage = "Usuario no encontrado"
+                            }
+                            HttpStatusCode.Unauthorized -> {
+                                errorMessage = "Credenciales incorrectas"
+                            }
+                            HttpStatusCode.BadRequest -> {
+                                errorMessage = "Error en la validación de datos"
+                            }
+                            HttpStatusCode.InternalServerError -> {
+                                errorMessage = "Error interno del servidor"
+                            }
+                            else -> {
+                                errorMessage = "Error desconocido: ${response.status}"
+                            }
                         }
                     } catch (e: Exception) {
-                        errorMessage = "Error: ${e.message}"
+                        errorMessage = "Error de conexión: ${e.message}"
                     }
                 }
             }, modifier = Modifier.fillMaxWidth()) {
