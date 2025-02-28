@@ -168,3 +168,13 @@ Esta API REST servirá como para una aplicación de gestión de tareas del hogar
 <br>
 <img src="Images/LoginIncorrecto2.png" alt="UserInterfaz" width="300"/>
 <br>
+
+## PRUEBAS GESTIÓN TAREAS
+
+### Generar usuarios USER y ADMIN para las pruebas
+### Crear una tarea propia como USER y como ADMIN
+### Crear una tarea para otro usuario como USER y como ADMIN
+### Eliminar una tarea propia como USER y como ADMIN
+### Eliminar una tarea de otro usuario como USER y como ADMIN
+### Ver tareas como USER y como ADMIN
+### Marcar una tarea como hecha por un USER

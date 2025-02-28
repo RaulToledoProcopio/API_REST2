@@ -5,5 +5,5 @@ data class TareaDTO(
     val titulo: String,
     val descripcion: String,
     val username: String,
-    val completada: Boolean
+    var completada: Boolean
 )
