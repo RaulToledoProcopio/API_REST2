@@ -122,59 +122,99 @@ Esta API REST servirá como para una aplicación de gestión de tareas del hogar
 <br>
 <img src="Images/UserInterfaz.png" alt="UserInterfaz" width="300"/>
 <br>
-<img src="Images/UsuarioBBDD.png" alt="UserInterfaz" width="500"/>
+<img src="Images/UsuarioBBDD.png" alt="UsuarioBBDD" width="500"/>
 
 ### Registrar un Usuario Admin
 
 - En este caso vamos a registrar un usuario de tipo admin y vamos a realizar capturas tanto de insomnia como de la interfaz.
 
-<img src="Images/AdminInsomnia.png" alt="UserInterfaz" width="1000"/>
+<img src="Images/AdminInsomnia.png" alt="AdminInsomnia" width="1000"/>
 <br>
-<img src="Images/AdminBBDD.png" alt="UserInterfaz" width="500"/>
+<img src="Images/AdminBBDD.png" alt="AdminBBDD" width="500"/>
 <br>
 
 ### Logear con un Usuario User
 
 - En este caso vamos a logearnos con un usuario USER.
 
-<img src="Images/LoginInsomnia.png" alt="UserInterfaz" width="10000"/>
+<img src="Images/LoginInsomnia.png" alt="LoginInsomnia" width="10000"/>
 <br>
-<img src="Images/LoginInterfaz.png" alt="UserInterfaz" width="300"/>
+<img src="Images/LoginInterfaz.png" alt="LoginInterfaz" width="300"/>
 <br>
 
 ### Logear con un Usuario Admin
 
 - En este caso vamos a logearnos con un usuario ADMIN.
 
-<img src="Images/AdminLogin.png" alt="UserInterfaz" width="1000"/>
+<img src="Images/AdminLogin.png" alt="AdminLogin" width="1000"/>
 <br>
-<img src="Images/AdminLogin2.png" alt="UserInterfaz" width="300"/>
+<img src="Images/AdminLogin2.png" alt="AdminLogin2" width="300"/>
 <br>
 
 ### Registrar un Usuario con campos incompletos
 
 - Vamos a intentar realizar un registro erróneo con campos incompletos.
 
-<img src="Images/CamposVacíos.png" alt="UserInterfaz" width="1000"/>
+<img src="Images/CamposVacíos.png" alt="CamposVacíos" width="1000"/>
 <br>
-<img src="Images/CamposVacíos2.png" alt="UserInterfaz" width="300"/>
+<img src="Images/CamposVacíos2.png" alt="CamposVacíos2" width="300"/>
 <br>
 
 ### Logear a un Usuario con datos incorrectos
 
 - Vamos a intentar logearnos con un Usuario que sea incorrecto.
 
-<img src="Images/LoginIncorrecto.png" alt="UserInterfaz" width="1000"/>
+<img src="Images/LoginIncorrecto.png" alt="LoginIncorrecto" width="1000"/>
 <br>
-<img src="Images/LoginIncorrecto2.png" alt="UserInterfaz" width="300"/>
+<img src="Images/LoginIncorrecto2.png" alt="LoginIncorrecto2" width="300"/>
 <br>
 
 ## PRUEBAS GESTIÓN TAREAS
 
 ### Generar usuarios USER y ADMIN para las pruebas
+
+- En primer lugar vamos a empezar por crear un usuario que sea USER y otro que sea ADMI.
+
+User:
+
+<img src="Images/RegistroUser.png" alt="RegistroUser" width="1000"/>
+
+Admin:
+
 ### Crear una tarea propia como USER y como ADMIN
+
+- Vamos a crear una tarea para el propio usuario logeado, cosa que se debería poder hacer con ambos tipos de usuario.
+
+User:
+Admin:
+
 ### Crear una tarea para otro usuario como USER y como ADMIN
+
+- Vamos a crear una tarea para otro usuario, cosa que solo se debería poder hacer como admin.
+
+User:
+Admin:
+
+
 ### Eliminar una tarea propia como USER y como ADMIN
+
+- Vamos a eliminar una tarea para el propio usuario logeado, cosa que se debería poder hacer con ambos tipos de usuario.
+
+User:
+Admin:
+
 ### Eliminar una tarea de otro usuario como USER y como ADMIN
+
+- Vamos a eliminar una tarea asignada a otro usuario, cosa que solo se debería poder hacer como admin.
+
+User:
+Admin:
+
 ### Ver tareas como USER y como ADMIN
+
+- Vamos ahora a pedir la lista de tareas disponibles, cosa que como USER solo debería mostrar las propias y como admin
+debería mostrarte todas de todos los usuarios.
+
 ### Marcar una tarea como hecha por un USER
+
+- Ahora vamos a marcar una tarea propia como completada, cosa que tienen que poder hacer los usuarios.
