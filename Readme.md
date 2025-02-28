@@ -181,40 +181,70 @@ User:
 
 Admin:
 
+<img src="Images/RegistroAdmin.png" alt="RegistroAdmin" width="1000"/>
+
 ### Crear una tarea propia como USER y como ADMIN
 
 - Vamos a crear una tarea para el propio usuario logeado, cosa que se debería poder hacer con ambos tipos de usuario.
 
 User:
+
+<img src="Images/CrearTareaUser.png" alt="CrearTareaUser" width="1000"/>
+
 Admin:
+
+<img src="Images/CrearTareaAdmin.png" alt="CrearTareaAdmin" width="1000"/>
 
 ### Crear una tarea para otro usuario como USER y como ADMIN
 
 - Vamos a crear una tarea para otro usuario, cosa que solo se debería poder hacer como admin.
 
 User:
+
+<img src="Images/CrearTareaUser2.png" alt="CrearTareaUser2" width="1000"/>
+
 Admin:
 
+<img src="Images/CrearTareaAdmin2.png" alt="CrearTareaAdmin2" width="1000"/>
 
 ### Eliminar una tarea propia como USER y como ADMIN
 
 - Vamos a eliminar una tarea para el propio usuario logeado, cosa que se debería poder hacer con ambos tipos de usuario.
 
 User:
+
+<img src="Images/EliminarTareaUser.png" alt="EliminarTareaUser" width="1000"/>
+
 Admin:
+
+<img src="Images/EliminarTareaAdmin.png" alt="EliminarTareaAdmin" width="1000"/>
 
 ### Eliminar una tarea de otro usuario como USER y como ADMIN
 
 - Vamos a eliminar una tarea asignada a otro usuario, cosa que solo se debería poder hacer como admin.
 
 User:
+
+<img src="Images/EliminarTareaUser2.png" alt="EliminarTareaUser2" width="1000"/>
+
 Admin:
+
+<img src="Images/EliminarTareaAdmin2.png" alt="EliminarTareaAdmin2" width="1000"/>
 
 ### Ver tareas como USER y como ADMIN
 
 - Vamos ahora a pedir la lista de tareas disponibles, cosa que como USER solo debería mostrar las propias y como admin
-debería mostrarte todas de todos los usuarios.
+debería mostrarte todas de todos los usuarios. Hemos creado varias tareas para RaulUser y algunas para  RaulAdmin, como
+se ve, solo nos muestra las asignadas a RaulUser.
+
+<img src="Images/VerTareasUser.png" alt="VerTareasUser" width="1000"/>
+
+- Mientras que con el token de Admin nos muestra todas las tareas disponibles.
+
+<img src="Images/VerTareasAdmin.png" alt="VerTareasAdmin" width="1000"/>
 
 ### Marcar una tarea como hecha por un USER
 
 - Ahora vamos a marcar una tarea propia como completada, cosa que tienen que poder hacer los usuarios.
+
+<img src="Images/ActualizarTarea.png" alt="ActualizarTarea" width="1000"/>
