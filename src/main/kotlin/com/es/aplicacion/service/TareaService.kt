@@ -33,7 +33,7 @@ class TareaService(
         )
     }
 
-    // **3. Crear una tarea (Usuario solo para sí mismo, ADMIN para cualquiera)**
+    // Crear una tarea
     fun crearTarea(nuevaTareaDTO: NuevaTareaDTO, username: String? = null): TareaDTO {
         val usuarioActual = getUsuarioActual()
 
@@ -112,7 +112,7 @@ class TareaService(
     }
 
 
-    // **Obtener todas las tareas del usuario (filtradas por rol)**
+    // Obtener todas las tareas del usuario
     fun obtenerTareas(username: String): List<TareaResumenDTO> {
         val isAdmin = SecurityContextHolder.getContext().authentication.authorities.any { it.authority == "ROLE_ADMIN" }
 
