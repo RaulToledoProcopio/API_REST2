@@ -21,21 +21,24 @@ class TareaController(
     )
 
     @PostMapping("/crearTarea")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    fun crearTarea(
-        @RequestBody nuevaTareaDTO: NuevaTareaDTO
-    ): ResponseEntity<Any> {
-        val usernameAutenticado = SecurityContextHolder.getContext().authentication.name
-        val isAdmin = SecurityContextHolder.getContext().authentication.authorities.any { it.authority == "ROLE_ADMIN" }
+    fun crearTarea(@RequestBody nuevaTareaDTO: NuevaTareaDTO): ResponseEntity<Any> {
+        val auth = SecurityContextHolder.getContext().authentication
+
+        if (!auth.authorities.any { it.authority == "ROLE_USER" || it.authority == "ROLE_ADMIN" }) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("No tienes permisos")
+        }
+
+        val usernameAutenticado = auth.name
+        val isAdmin = auth.authorities.any { it.authority == "ROLE_ADMIN" }
 
         if (!isAdmin && nuevaTareaDTO.username != usernameAutenticado) {
-            val errorResponse = ErrorResponse("No tiene permisos para asignar tareas a otro usuario")
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorResponse)
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("No puedes asignar tareas a otro usuario")
         }
 
         val tarea = tareaService.crearTarea(nuevaTareaDTO, nuevaTareaDTO.username)
         return ResponseEntity.status(HttpStatus.CREATED).body(tarea)
     }
+
 
     @DeleteMapping("/eliminarTarea")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
