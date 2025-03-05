@@ -52,7 +52,7 @@ fun EliminarTareaScreen(token: String, onBack: () -> Unit) {
                     scope.launch {
                         try {
                             // Construir la URL manualmente con los parámetros
-                            val url = "https://api-rest2-xqzf.onrender.com/tareas/eliminarTarea?titulo=$titulo&Username=$assignedUsername"
+                            val url = "https://api-rest2-xqzf.onrender.com/tareas/eliminarTarea?titulo=$titulo&username=$assignedUsername"
                             val response: HttpResponse = client.delete(url) {
                                 headers { append(HttpHeaders.Authorization, "Bearer $token") }
                             }
