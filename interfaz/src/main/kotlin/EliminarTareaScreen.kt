@@ -58,7 +58,6 @@ fun EliminarTareaScreen(token: String, onBack: () -> Unit) {
                             }
                             if (response.status == HttpStatusCode.OK) {
                                 errorMessage = "Tarea eliminada correctamente"
-                                onBack()
                             } else {
                                 errorMessage = "Error al eliminar tarea: ${response.status}"
                             }
