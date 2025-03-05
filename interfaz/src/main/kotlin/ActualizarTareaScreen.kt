@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 @Composable
 fun ActualizarTareaScreen(token: String?, onBack: () -> Unit) {
     var titulo by remember { mutableStateOf("") }
-    var username by remember { mutableStateOf("") }
     var completada by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()
@@ -40,27 +39,33 @@ fun ActualizarTareaScreen(token: String?, onBack: () -> Unit) {
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            OutlinedTextField(value = titulo, onValueChange = { titulo = it }, label = { Text("Título") }, modifier = Modifier.fillMaxWidth())
-            OutlinedTextField(value = username, onValueChange = { username = it }, label = { Text("Username") }, modifier = Modifier.fillMaxWidth())
+            // Campo para ingresar el título de la tarea
+            OutlinedTextField(
+                value = titulo,
+                onValueChange = { titulo = it },
+                label = { Text("Título de la tarea") },
+                modifier = Modifier.fillMaxWidth()
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            // Botón para actualizar la tarea
             Button(onClick = {
                 scope.launch {
                     try {
-                        val response: HttpResponse = client.put("https://api-rest2-xqzf.onrender.com/tareas/actualizarTarea") {
+                        val response: HttpResponse = client.put("https://api-rest2-xqzf.onrender.com/tareas/actualizarTarea?titulo=$titulo") {
                             contentType(ContentType.Application.Json)
                             headers {
                                 append(HttpHeaders.Authorization, "Bearer $token") // Aquí agregas el token en la cabecera
                             }
                             setBody(
                                 """{
-                                    "titulo": "$titulo",
-                                    "username": "$username",
                                     "completada": $completada
                                 }"""
                             )
                         }
+
+                        // Verifica el código de respuesta
                         if (response.status == HttpStatusCode.OK) {
                             errorMessage = "Tarea actualizada correctamente"
                             onBack() // Regresar a la pantalla de tareas
@@ -75,10 +80,12 @@ fun ActualizarTareaScreen(token: String?, onBack: () -> Unit) {
                 Text("Actualizar Tarea")
             }
 
+            // Mostrar el mensaje de error si lo hay
             errorMessage?.let { Text(it, color = MaterialTheme.colors.error) }
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            // Botón para volver a la pantalla de tareas
             Button(onClick = onBack) {
                 Text("Volver a Tareas")
             }
