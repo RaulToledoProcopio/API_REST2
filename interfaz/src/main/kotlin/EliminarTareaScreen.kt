@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun EliminarTareaScreen(token: String, onBack: () -> Unit) {
     var titulo by remember { mutableStateOf("") }
-    var username by remember { mutableStateOf("") }
+    var assignedUsername by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()
     val client = HttpClient {
@@ -41,9 +41,9 @@ fun EliminarTareaScreen(token: String, onBack: () -> Unit) {
                 modifier = Modifier.fillMaxWidth()
             )
             OutlinedTextField(
-                value = username,
-                onValueChange = { username = it },
-                label = { Text("Username") },
+                value = assignedUsername,
+                onValueChange = { assignedUsername = it },
+                label = { Text("Username asignado") },
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(16.dp))
@@ -51,12 +51,11 @@ fun EliminarTareaScreen(token: String, onBack: () -> Unit) {
                 onClick = {
                     scope.launch {
                         try {
-                            val response: HttpResponse = client.post("https://api-rest2-xqzf.onrender.com/tareas/eliminarTarea") {
-                                contentType(ContentType.Application.Json)
-                                headers {
-                                    append(HttpHeaders.Authorization, "Bearer $token")
-                                }
-                                setBody("""{ "titulo": "$titulo", "username": "$username" }""")
+                            // Realiza la petición DELETE con query parameters
+                            val response: HttpResponse = client.delete("https://api-rest2-xqzf.onrender.com/tareas/eliminarTarea") {
+                                headers { append(HttpHeaders.Authorization, "Bearer $token") }
+                                parameter("titulo", titulo)
+                                parameter("Username", assignedUsername)
                             }
                             if (response.status == HttpStatusCode.OK) {
                                 errorMessage = "Tarea eliminada correctamente"
@@ -73,9 +72,7 @@ fun EliminarTareaScreen(token: String, onBack: () -> Unit) {
             ) {
                 Text("Eliminar Tarea")
             }
-            errorMessage?.let {
-                Text(it, color = MaterialTheme.colors.error)
-            }
+            errorMessage?.let { Text(it, color = MaterialTheme.colors.error) }
             Spacer(modifier = Modifier.height(16.dp))
             Button(onClick = onBack, modifier = Modifier.fillMaxWidth()) {
                 Text("Volver a Tareas")
