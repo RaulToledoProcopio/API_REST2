@@ -51,11 +51,10 @@ fun EliminarTareaScreen(token: String, onBack: () -> Unit) {
                 onClick = {
                     scope.launch {
                         try {
-                            // Realiza la petición DELETE con query parameters
-                            val response: HttpResponse = client.delete("https://api-rest2-xqzf.onrender.com/tareas/eliminarTarea") {
+                            // Construir la URL manualmente con los parámetros
+                            val url = "https://api-rest2-xqzf.onrender.com/tareas/eliminarTarea?titulo=$titulo&Username=$assignedUsername"
+                            val response: HttpResponse = client.delete(url) {
                                 headers { append(HttpHeaders.Authorization, "Bearer $token") }
-                                parameter("titulo", titulo)
-                                parameter("Username", assignedUsername)
                             }
                             if (response.status == HttpStatusCode.OK) {
                                 errorMessage = "Tarea eliminada correctamente"
