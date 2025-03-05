@@ -2,11 +2,30 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.window.singleWindowApplication
 
 fun main() = singleWindowApplication {
-    var showRegister by remember { mutableStateOf(false) }
+    var screen by remember { mutableStateOf("login") }
+    var token by remember { mutableStateOf<String?>(null) }
+    var username by remember { mutableStateOf("") }
 
-    if (showRegister) {
-        RegisterScreen { showRegister = false } // Volver a Login después de registrarse
-    } else {
-        LoginScreen(onLoginSuccess = { println("Usuario logueado con éxito!") }, onRegisterClick = { showRegister = true })
+    when (screen) {
+        "login" -> LoginScreen(
+            onLoginSuccess = { receivedToken, user ->
+                token = receivedToken
+                username = user
+                screen = "tareas"
+            },
+            onRegisterClick = { screen = "register" }
+        )
+        "register" -> RegisterScreen(
+            onRegisterSuccess = { screen = "login" }
+        )
+        "tareas" -> TareasScreen(
+            token = token ?: "",
+            username = username,
+            onLogout = {
+                token = null
+                username = ""
+                screen = "login"
+            }
+        )
     }
 }

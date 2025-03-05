@@ -11,83 +11,80 @@ import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
 
 @Composable
-fun LoginScreen(onLoginSuccess: () -> Unit, onRegisterClick: () -> Unit) {
+fun LoginScreen(onLoginSuccess: (String, String) -> Unit, onRegisterClick: () -> Unit) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()
-
     val client = HttpClient {
-        install(ContentNegotiation) {
-            json()
-        }
+        install(ContentNegotiation) { json() }
     }
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp) // Añade margen a la pantalla
+            .padding(16.dp)
     ) {
         Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center, // Centra los elementos
-            horizontalAlignment = Alignment.CenterHorizontally
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxSize()
         ) {
             Text("Login", style = MaterialTheme.typography.h5)
-
             Spacer(modifier = Modifier.height(8.dp))
-
-            OutlinedTextField(value = username, onValueChange = { username = it }, label = { Text("Username") }, modifier = Modifier.fillMaxWidth())
-            OutlinedTextField(value = password, onValueChange = { password = it }, label = { Text("Password") }, modifier = Modifier.fillMaxWidth())
-
-            Button(onClick = {
-                scope.launch {
-                    try {
-                        val response: HttpResponse = client.post("https://api-rest2-xqzf.onrender.com/usuarios/login") {
-                            contentType(ContentType.Application.Json)
-                            setBody(
-                                """{
-                        "username": "$username",
-                        "password": "$password"
-                    }"""
-                            )
+            OutlinedTextField(
+                value = username,
+                onValueChange = { username = it },
+                label = { Text("Username") },
+                modifier = Modifier.fillMaxWidth()
+            )
+            OutlinedTextField(
+                value = password,
+                onValueChange = { password = it },
+                label = { Text("Password") },
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(
+                onClick = {
+                    scope.launch {
+                        try {
+                            val response: HttpResponse = client.post("https://api-rest2-xqzf.onrender.com/usuarios/login") {
+                                contentType(ContentType.Application.Json)
+                                setBody("""{ "username": "$username", "password": "$password" }""")
+                            }
+                            when (response.status) {
+                                HttpStatusCode.Created -> {
+                                    val jsonResponse = Json.decodeFromString<Map<String, String>>(response.bodyAsText())
+                                    val token = jsonResponse["token"]
+                                    if (token != null) {
+                                        onLoginSuccess(token, username)
+                                    } else {
+                                        errorMessage = "Token no recibido en la respuesta."
+                                    }
+                                }
+                                HttpStatusCode.NotFound -> errorMessage = "Usuario no encontrado"
+                                HttpStatusCode.Unauthorized -> errorMessage = "Credenciales incorrectas"
+                                HttpStatusCode.BadRequest -> errorMessage = "Error en la validación de datos"
+                                HttpStatusCode.InternalServerError -> errorMessage = "Error interno del servidor"
+                                else -> errorMessage = "Error desconocido: ${response.status}"
+                            }
+                        } catch (e: Exception) {
+                            errorMessage = "Error de conexión: ${e.message}"
                         }
-                        when (response.status) {
-                            HttpStatusCode.Created -> {
-                                errorMessage = "Credenciales correctas"
-                                onLoginSuccess()
-                            }
-                            HttpStatusCode.NotFound -> {
-                                errorMessage = "Usuario no encontrado"
-                            }
-                            HttpStatusCode.Unauthorized -> {
-                                errorMessage = "Credenciales incorrectas"
-                            }
-                            HttpStatusCode.BadRequest -> {
-                                errorMessage = "Error en la validación de datos"
-                            }
-                            HttpStatusCode.InternalServerError -> {
-                                errorMessage = "Error interno del servidor"
-                            }
-                            else -> {
-                                errorMessage = "Error desconocido: ${response.status}"
-                            }
-                        }
-                    } catch (e: Exception) {
-                        errorMessage = "Error de conexión: ${e.message}"
                     }
-                }
-            }, modifier = Modifier.fillMaxWidth()) {
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
                 Text("Iniciar Sesión")
             }
-
-            errorMessage?.let { Text(it, color = MaterialTheme.colors.error) }
-
+            errorMessage?.let {
+                Text(it, color = MaterialTheme.colors.error)
+            }
             Spacer(modifier = Modifier.height(16.dp))
-
-            // Botón para ir a la pantalla de registro
             TextButton(onClick = onRegisterClick) {
                 Text("¿No tienes cuenta? Regístrate")
             }
