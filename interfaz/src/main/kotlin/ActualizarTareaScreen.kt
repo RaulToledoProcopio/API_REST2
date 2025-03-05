@@ -68,7 +68,6 @@ fun ActualizarTareaScreen(token: String?, onBack: () -> Unit) {
                         // Verifica el código de respuesta
                         if (response.status == HttpStatusCode.OK) {
                             errorMessage = "Tarea actualizada correctamente"
-                            onBack() // Regresar a la pantalla de tareas
                         } else {
                             errorMessage = "Error al actualizar tarea: ${response.status}"
                         }
