@@ -13,7 +13,7 @@ fun TareasScreen(token: String, username: String, onLogout: () -> Unit) {
     var showViewTareas by remember { mutableStateOf(false) }
 
     when {
-        showCreateTarea -> CrearTareaScreen(token = token, username = username, onBack = { showCreateTarea = false })
+        showCreateTarea -> CrearTareaScreen(token = token, onBack = { showCreateTarea = false })
         showDeleteTarea -> EliminarTareaScreen(token = token, onBack = { showDeleteTarea = false })
         showUpdateTarea -> ActualizarTareaScreen(token = token, onBack = { showUpdateTarea = false })
         showViewTareas -> VerTareasScreen(token = token, onBack = { showViewTareas = false })
