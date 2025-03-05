@@ -60,7 +60,7 @@ fun ActualizarTareaScreen(token: String?, onBack: () -> Unit) {
                             }
                             setBody(
                                 """{
-                                    "completada": $completada
+                                    "completada": true
                                 }"""
                             )
                         }
