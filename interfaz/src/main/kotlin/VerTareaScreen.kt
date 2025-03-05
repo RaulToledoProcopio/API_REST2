@@ -5,6 +5,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import io.ktor.client.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -88,7 +89,8 @@ fun VerTareasScreen(token: String, onBack: () -> Unit) {
                         // Mostrar cada tarea en una Card
                         Card(
                             modifier = Modifier.fillMaxWidth(),
-                            elevation = 4.dp
+                            elevation = 4.dp,
+                            backgroundColor = Color(0xFFB39DDB) //
                         ) {
                             Column(
                                 modifier = Modifier
