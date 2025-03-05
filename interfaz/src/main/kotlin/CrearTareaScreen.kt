@@ -13,17 +13,15 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.launch
 
 @Composable
-fun CrearTareaScreen(token: String, username: String, onBack: () -> Unit) {
-    // Aquí puedes usar onBack para hacer que la pantalla vuelva a la pantalla de tareas
+fun CrearTareaScreen(token: String, onBack: () -> Unit) {
     var titulo by remember { mutableStateOf("") }
     var descripcion by remember { mutableStateOf("") }
+    // Campo para ingresar el username al que se le asignará la tarea.
+    var assignedUsername by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()
-
     val client = HttpClient {
-        install(ContentNegotiation) {
-            json()
-        }
+        install(ContentNegotiation) { json() }
     }
 
     Box(
@@ -37,45 +35,43 @@ fun CrearTareaScreen(token: String, username: String, onBack: () -> Unit) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text("Crear Tarea", style = MaterialTheme.typography.h5)
-
             Spacer(modifier = Modifier.height(8.dp))
-
             OutlinedTextField(
                 value = titulo,
                 onValueChange = { titulo = it },
                 label = { Text("Título") },
                 modifier = Modifier.fillMaxWidth()
             )
-
             Spacer(modifier = Modifier.height(8.dp))
-
             OutlinedTextField(
                 value = descripcion,
                 onValueChange = { descripcion = it },
                 label = { Text("Descripción") },
                 modifier = Modifier.fillMaxWidth()
             )
-
+            Spacer(modifier = Modifier.height(8.dp))
+            // Nuevo campo para el username al que se le asigna la tarea
+            OutlinedTextField(
+                value = assignedUsername,
+                onValueChange = { assignedUsername = it },
+                label = { Text("Username a asignar") },
+                modifier = Modifier.fillMaxWidth()
+            )
             Spacer(modifier = Modifier.height(16.dp))
-
             Button(
                 onClick = {
-                    // Lógica para crear la tarea
                     scope.launch {
                         try {
                             val response: HttpResponse = client.post("https://api-rest2-xqzf.onrender.com/tareas/crearTarea") {
                                 contentType(ContentType.Application.Json)
-                                setBody(
-                                    """{
-                                    "titulo": "$titulo",
-                                    "descripcion": "$descripcion",
-                                    "username": "$username"
-                                }"""
-                                )
+                                headers {
+                                    append(HttpHeaders.Authorization, "Bearer $token")
+                                }
+                                setBody("""{ "titulo": "$titulo", "descripcion": "$descripcion", "username": "$assignedUsername" }""")
                             }
                             if (response.status == HttpStatusCode.OK) {
                                 errorMessage = "Tarea creada correctamente"
-                                onBack()  // Esto te llevará de regreso a la pantalla de tareas
+                                onBack()
                             } else {
                                 errorMessage = "Error al crear tarea: ${response.status}"
                             }
@@ -88,12 +84,9 @@ fun CrearTareaScreen(token: String, username: String, onBack: () -> Unit) {
             ) {
                 Text("Crear Tarea")
             }
-
             errorMessage?.let { Text(it, color = MaterialTheme.colors.error) }
-
             Spacer(modifier = Modifier.height(16.dp))
-
-            Button(onClick = onBack) {
+            Button(onClick = onBack, modifier = Modifier.fillMaxWidth()) {
                 Text("Volver a Tareas")
             }
         }
